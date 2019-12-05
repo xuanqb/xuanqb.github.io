@@ -61,97 +61,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-一条语句怎么查询的" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/05/%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/" class="article-date">
-  <time datetime="2019-12-05T01:30:26.000Z" itemprop="datePublished">2019-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/05/%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/">一条语句怎么查询的</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h3><p><img src="D:%5Csync%5C%E5%9B%BE%E7%89%87%5Cmarkdown%5C76c1ac19478bee929b60e6e7c918ccca.png" alt="MySql执行流程"><br>MySQL可分为Server层和存储引擎层两个部分</p>
-<h4 id="Server层"><a href="#Server层" class="headerlink" title="Server层"></a>Server层</h4><p>Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等<br><strong>不同的存储引擎共用一个Server 层</strong></p>
-<h5 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h5><p>负责与客户端建立连接、获取权限、维持和管理连接。客户端与数据库进行连接时，需要输入用户名与密码。</p>
-<ul>
-<li>如果用户名或者密码不正确，你就会收到一个”Access denied for user”的错误，然后客户端程序结束执行。</li>
-<li>如果用户名密码认证通过，连接器会到权限表里面查出你拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。这就意味着，一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。</li>
-</ul>
-<h5 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h5><p>MySQL在执行一条查询语句时，会先去内存中查询以这条语句为key的value，如果存在就直接返回缓存中的内容，否则就继续后边的执行阶段，并把查询结果缓存到内存中。但是它并不是很好用，当有一张表的数据发生变更时，和这张表有关的查询缓存都会失效。</p>
-<h5 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h5><p>如果没有命中查询缓存，就要开始真正执行语句了，首先，MySQL 需要知道你要做什么，因此需要对 SQL 语句做解析。分析器先会做“词法分析”，然后就要做“语法分析”。根据词法分析的结果，语法分析器会根据语法规则，判断你输入的这个 SQL 语句是否满足 MySQL 语法。如果你的语句不对，就会收到“You have an error in your SQL syntax”的错误提醒。</p>
-<h5 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h5><p>优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序</p>
-<h5 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h5><p>开始执行的时候，要先判断一下你对这个表 T 有没有执行查询的权限，如果没有，就会返回没有权限的错误。<br>如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。</p>
-<h4 id="存储引擎层"><a href="#存储引擎层" class="headerlink" title="存储引擎层"></a>存储引擎层</h4><p>存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL5.5.5 版本开始成为了默认存储引擎。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/05/%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/" data-id="ck3s1ncju0002zcutg8fhbzrv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-01.一条语句怎么查询的" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/05/01.%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/" class="article-date">
-  <time datetime="2019-12-05T01:27:22.955Z" itemprop="datePublished">2019-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/05/01.%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/">01.一条语句怎么查询的</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h3><p><img src="D:%5Csync%5C%E5%9B%BE%E7%89%87%5Cmarkdown%5C76c1ac19478bee929b60e6e7c918ccca.png" alt="MySql执行流程"><br>MySQL可分为Server层和存储引擎层两个部分</p>
-<h4 id="Server层"><a href="#Server层" class="headerlink" title="Server层"></a>Server层</h4><p>Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖 MySQL 的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等<br><strong>不同的存储引擎共用一个Server 层</strong></p>
-<h5 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h5><p>负责与客户端建立连接、获取权限、维持和管理连接。客户端与数据库进行连接时，需要输入用户名与密码。</p>
-<ul>
-<li>如果用户名或者密码不正确，你就会收到一个”Access denied for user”的错误，然后客户端程序结束执行。</li>
-<li>如果用户名密码认证通过，连接器会到权限表里面查出你拥有的权限。之后，这个连接里面的权限判断逻辑，都将依赖于此时读到的权限。这就意味着，一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。<h5 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h5>MySQL在执行一条查询语句时，会先去内存中查询以这条语句为key的value，如果存在就直接返回缓存中的内容，否则就继续后边的执行阶段，并把查询结果缓存到内存中。但是它并不是很好用，当有一张表的数据发生变更时，和这张表有关的查询缓存都会失效。<h5 id="分析器"><a href="#分析器" class="headerlink" title="分析器"></a>分析器</h5>如果没有命中查询缓存，就要开始真正执行语句了，首先，MySQL 需要知道你要做什么，因此需要对 SQL 语句做解析。分析器先会做“词法分析”，然后就要做“语法分析”。根据词法分析的结果，语法分析器会根据语法规则，判断你输入的这个 SQL 语句是否满足 MySQL 语法。如果你的语句不对，就会收到“You have an error in your SQL syntax”的错误提醒。<h5 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h5>优化器是在表里面有多个索引的时候，决定使用哪个索引；或者在一个语句有多表关联（join）的时候，决定各个表的连接顺序<h5 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h5>开始执行的时候，要先判断一下你对这个表 T 有没有执行查询的权限，如果没有，就会返回没有权限的错误。<br>如果有权限，就打开表继续执行。打开表的时候，执行器就会根据表的引擎定义，去使用这个引擎提供的接口。<h4 id="存储引擎层"><a href="#存储引擎层" class="headerlink" title="存储引擎层"></a>存储引擎层</h4>存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB，它从 MySQL5.5.5 版本开始成为了默认存储引擎。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/05/01.%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/" data-id="ck3s1ncjl0000zcut7fo2aga7" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/12/04/hello-world/" class="article-date">
@@ -230,14 +139,6 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/12/05/%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/">一条语句怎么查询的</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/05/01.%E4%B8%80%E6%9D%A1%E8%AF%AD%E5%8F%A5%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2%E7%9A%84/">01.一条语句怎么查询的</a>
-          </li>
         
           <li>
             <a href="/2019/12/04/hello-world/">Hello World</a>
